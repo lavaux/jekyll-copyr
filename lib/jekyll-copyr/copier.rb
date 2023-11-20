@@ -17,6 +17,7 @@ module Jekyll
         end
         @enabled = @config["enabled"]
         @tasks = @config["tasks"].map { |task_hash| Task.new task_hash }
+        @dest = @config["destination"]
       end
 
       def process_post_write
@@ -29,7 +30,7 @@ module Jekyll
 
       def process(task)
         FileUtils.mkdir_p task.to
-        FileUtils.cp_r task.from, task.to
+        FileUtils.cp_r task.from, @dest + "/" + task.to
       end
     end
   end
